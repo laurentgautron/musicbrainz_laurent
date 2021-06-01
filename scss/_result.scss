@@ -1,0 +1,41 @@
+main {
+    .container {
+        background-color: rgba(22, 119, 158, 0.849);
+        table {
+            margin-right: auto;
+            margin-left: auto;
+            border-collapse: collapse;
+            tr {
+                font-size: 2.7rem;
+            }
+            td, th, tr {
+                padding-left: 2rem;
+                padding-right: 2rem;
+                text-align: center;
+            }
+            td:nth-child(5),
+            th:nth-child(5) {
+                padding-right: 3rem;
+            }
+            td:nth-child(1),
+            th:nth-child(1) {
+                padding-left: 3rem;
+            }
+            tbody {
+                tr:nth-child(odd) {
+                    background-color: rgb(25, 91, 212);
+                    color: aqua;
+                }
+                tr:not(:nth-child(odd)) {
+                    background-color: aqua;
+                    color: rgb(25, 91, 212);
+                }
+            }
+        }
+        .anim {
+            font-size: 10rem;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/music.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Lolo Music APP</h1>
+            <div class="reserchForm">
+                <form class = "musicform">
+                    <div class="word">
+                        <label for="requestfield">Entrez une recherche</label>
+                        <input type="text" name="requestfield" id="requestfield" placeholder="artist/titre/album">
+                    </div>
+                    <div class="option">
+                        <label for="field">Rechercher dans</label>
+                        <select name="field" id="field"></select>
+                    </div>
+                    <button type="submit">Rechercher</button>
+                </form>
+                <p class="results"></p>
+            </div>
+            
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <table class="tableResult">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+            <div class="anim"></div>
+            <nav class="pagination">
+                <ul class="button-list">
+                    <li><button class="prev">&lsaquo; précédent</button></li>
+                    <li ><button class="active number">1</button></li>
+                    <li><button class="dot">..</button></li>
+                    <li><button class="number">3</button></li>
+                    <li><button class="number">4</button></li>
+                    <li><button class="number">5</button></li>
+                    <li><button class="dot">..</button></li>
+                    <li><button class="number">7</button></li>
+                    <li><button class="next">suivant &rsaquo;</button></li>
+                </ul>
+            </nav>
+        </div>   
+    </main>
+
+
+    <script src="javascript/elements.js"></script>
+    <script src="javascript/functionrequest.js"></script>
+    <script src="javascript/otherfunctions.js"></script>
+</body>
+</html>

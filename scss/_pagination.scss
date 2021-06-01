@@ -1,0 +1,44 @@
+.pagination {
+  padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+      font-size: 0;
+      ul {
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
+        background: rgb(9, 156, 156);
+        display: flex;
+      }
+      li {
+        margin-left: 2px;
+        margin-right: 2px;
+        cursor: default;
+        button {
+          background: none;
+          font-size: 30px;
+          border: 0;
+          &.dot {
+            cursor: default;
+          }
+          &.active,
+          &:not(.dot):hover {
+            background-color: #fff;
+          }
+          &.number {
+            width: 4.7rem;
+            border-radius: 50%;
+          }
+        }
+      }
+  }
+  
+  .prev, .next {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    background: rgb(9, 156, 156);
+  }
