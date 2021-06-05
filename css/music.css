@@ -216,45 +216,57 @@ main .container table tbody tr:not(:nth-child(odd)) {
   color: #195bd4;
 }
 main .container .anim {
+  text-align: center;
   font-size: 10rem;
   margin-right: auto;
   margin-left: auto;
 }
 
 .pagination {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   display: flex;
   justify-content: center;
   font-size: 0;
 }
-.pagination ul {
-  border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
+.pagination .buttonList {
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  border-top-left-radius: 2rem;
   background: #099c9c;
   display: flex;
 }
-.pagination li {
+.pagination .buttonList li {
   margin-left: 2px;
   margin-right: 2px;
   cursor: default;
 }
-.pagination li button {
+.pagination .buttonList li button {
   background: none;
   font-size: 30px;
   border: 0;
 }
-.pagination li button.dot {
+.pagination .buttonList li button.dot, .pagination .buttonList li button.actualPage {
   cursor: default;
 }
-.pagination li button.active, .pagination li button:not(.dot):hover {
+.pagination .buttonList li button.actualPage, .pagination .buttonList li button:not(.dots):hover {
   background-color: #fff;
 }
-.pagination li button.number {
+.pagination .buttonList li button.number {
   width: 4.7rem;
   border-radius: 50%;
+}
+.pagination .buttonList li button.Prev {
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+.pagination .buttonList li button.Next {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+.pagination .buttonList li button.lastPage {
+  width: inherit;
 }
 
 .prev, .next {

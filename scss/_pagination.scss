@@ -1,39 +1,50 @@
 .pagination {
-  padding-top: 20px;
-    padding-bottom: 20px;
+  padding-top: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     justify-content: center;
-      font-size: 0;
-      ul {
-        border-bottom-right-radius: 20px;
-        border-top-right-radius: 20px;
-        border-bottom-left-radius: 20px;
-        border-top-left-radius: 20px;
-        background: rgb(9, 156, 156);
-        display: flex;
-      }
-      li {
-        margin-left: 2px;
-        margin-right: 2px;
-        cursor: default;
-        button {
-          background: none;
-          font-size: 30px;
-          border: 0;
-          &.dot {
-            cursor: default;
-          }
-          &.active,
-          &:not(.dot):hover {
-            background-color: #fff;
-          }
-          &.number {
-            width: 4.7rem;
-            border-radius: 50%;
-          }
+    font-size: 0;
+    .buttonList {
+      border-bottom-right-radius: 2rem;
+      border-top-right-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+      border-top-left-radius: 2rem;
+      background: rgb(9, 156, 156);
+      display: flex;
+    li {
+      margin-left: 2px;
+      margin-right: 2px;
+      cursor: default;
+      button {
+        background: none;
+        font-size: 30px;
+        border: 0;
+        &.dot, &.actualPage {
+          cursor: default;
+        }
+        &.actualPage,
+        &:not(.dots):hover {
+          background-color: #fff;
+        }
+        &.number {
+          width: 4.7rem;
+          border-radius: 50%;
+        }
+        &.Prev {
+          border-top-left-radius: 2rem;
+          border-bottom-left-radius: 2rem;
+        }
+        &.Next {
+          border-top-right-radius: 2rem;
+          border-bottom-right-radius: 2rem;
+        }
+        &.lastPage {
+          width: inherit;
         }
       }
+    }
   }
+}
   
   .prev, .next {
     border-bottom-right-radius: 20px;
