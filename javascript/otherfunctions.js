@@ -1,18 +1,20 @@
-/*encodeURIComponent(" AND type:album")*/
 /* table element where add results*/
 const tableResult = document.querySelector('.tableResult');
 const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 const selection = document.querySelector('select');
 
-/* header element */
-const results = document.querySelector('.results');
-const anim = document.querySelector('.anim');
-
 /* form element */
 const form = document.querySelector('.musicform');
 const searchedWord = document.querySelector('#requestfield');
 const searchedField = document.querySelector('#field');
+
+/* page element */
+const results = document.querySelector('.results');
+const anim = document.querySelector('.anim');
+const modale = document.querySelector('.modale');
+const modaleCross = document.querySelector('.modaleCross');
+
 
 /* main elements */
 /*  for each array in headerTable:
@@ -42,6 +44,22 @@ form.addEventListener('submit', (ev) => {
     wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult);
 })
 
+modaleCross.addEventListener('click', () => {
+    modale.setAttribute('hidden', '');
+})
+
+
+function addButtonAction(tableRow) {
+    const actionColumn = document.createElement('td');
+    const actionColumnButton = document.createElement('button');
+    actionColumnButton.addEventListener('click', () => {
+        modale.removeAttribute('hidden');
+    })
+    actionColumnButton.textContent = 'plus';
+    actionColumn.appendChild(actionColumnButton);  
+    tableRow.appendChild(actionColumn);
+    tableBody.appendChild(tableRow);
+}
 
 
 function urlForRequest(word, field) {
@@ -107,10 +125,7 @@ function displayResult(response, count, offset) {
             rowItem.textContent = getItemText(item, response.indexOf(recording), recording, offset);
             newRow.appendChild(rowItem);
         }
-        const actionColumn = document.createElement('td');
-        actionColumn.textContent = 'plus';  
-        newRow.appendChild(actionColumn);
-        tableBody.appendChild(newRow);
+        addButtonAction(newRow);
     }
 }
 
