@@ -2,7 +2,8 @@ const buttonList = document.querySelector('.buttonList');
 
 function newPage(button) {
     button.addEventListener('click', () => {
-        if (button.className !== 'actualPage') {
+        if (button.className !== 'number actualPage') {
+            console.log('après');
             const actual = buttonList.querySelector(".actualPage");
             actual.classList.remove('actualPage');
             button.classList.add('actualPage');

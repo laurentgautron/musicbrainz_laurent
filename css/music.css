@@ -215,12 +215,6 @@ main .container table tbody tr:not(:nth-child(odd)) {
   background-color: aqua;
   color: #195bd4;
 }
-main .container .anim {
-  text-align: center;
-  font-size: 10rem;
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .pagination {
   padding-top: 2rem;
@@ -267,6 +261,9 @@ main .container .anim {
 }
 .pagination .buttonList li button.lastPage {
   width: inherit;
+}
+.pagination .buttonList li button.dots {
+  cursor: inherit;
 }
 
 .prev, .next {
@@ -318,6 +315,42 @@ body {
   right: 0;
   top: 0;
   color: blue;
+}
+
+.anim {
+  padding-top: 5rem;
+  color: red;
+  text-align: center;
+}
+.anim .loader {
+  display: inline-block;
+  margin-right: 3rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 5px solid blue;
+  position: relative;
+}
+.anim .loader::after {
+  content: " ";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 5rem;
+  height: 5rem;
+  border: 5px solid transparent;
+  border-top-color: red;
+  border-radius: 50px;
+  animation: rot 0.5s linear infinite;
+}
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=music.css.map */

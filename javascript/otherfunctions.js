@@ -11,7 +11,7 @@ const searchedField = document.querySelector('#field');
 
 /* page element */
 const results = document.querySelector('.results');
-const anim = document.querySelector('.anim');
+const anim = document.querySelector('.anim span');
 const modale = document.querySelector('.modale');
 const modaleCross = document.querySelector('.modaleCross');
 
@@ -36,11 +36,12 @@ const options = [
 
 form.addEventListener('submit', (ev) => {
     ev.preventDefault();
-    anim.textContent = 'Bonjour';
+    anim.classList.add('loader');
     results.textContent = "";
     tableBody.innerHTML = "";
     buttonList.innerHTML = "";
     buttonList.setAttribute('hidden', '');
+    numberList = 1;
     wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult);
 })
 
@@ -67,9 +68,9 @@ function urlForRequest(word, field) {
         let url = "https://musicbrainz.org/ws/2/recording?query=";
         for (let i = 1; i < options.length; i++) {
             url = url + options[i][1] + ":\"" + word + "\"";
-            url = (i === options.length - 1) ? url : url + " OR ";
+            url = (i === options.length - 1) ? url : url + encodeURIComponent(" OR ");
         }
-        return url + "\"&fmt=json"
+        return url + "&fmt=json"
      } else {
         return "https://musicbrainz.org/ws/2/recording?query=" + field + ":\"" + word + "\"&fmt=json"
     }
@@ -117,7 +118,7 @@ function getItemText(itemArray, index, theRecording, offset) {
 
 function displayResult(response, count, offset) {
     results.textContent = `${count} résultats`;
-    anim.textContent = "";
+    anim.classList.remove('loader');
     for(recording of response) {
         const newRow = document.createElement('tr');
         for (const item of headerTable) {
