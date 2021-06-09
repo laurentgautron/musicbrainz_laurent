@@ -9,7 +9,8 @@ function newPage(button) {
             button.classList.add('actualPage');
             tableBody.innerHTML = "";
             const offset = (parseInt(button.textContent, 10) - 1) * 25
-            wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, (offset));
+            modalElements = [];
+            wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, getRecordingMbid, offset);
         }
     })
 }
@@ -30,7 +31,7 @@ function addLimitElement(node, elemetList) {
                 displayButton(numberList);
                 const page = document.querySelector('.actualPage');
                 const offset =(parseInt(page.textContent, 10) - 1) * 25
-                wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, offset);
+                wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, getModalElements, offset);
             })
         } else if ((parseInt(button.textContent, 10) === 1) || (parseInt(button.textContent, 10) === nbPages)) {
             button.classList.add('number');
