@@ -17,6 +17,7 @@ const results = document.querySelector('.results');
 const modale = document.querySelector('.modale');
 const modaleCross = document.querySelector('.modaleCross');
 const modalList = document.querySelector('.modalList');
+const coverList = document.querySelector('.coverList');
 
 /* variables */
 
@@ -24,7 +25,7 @@ const modalList = document.querySelector('.modalList');
     first element is column's title for the header table 
     other elements are path to get value in response  of request */
 const headerTable = [
-    ["#","rank"],
+    //["#","rank"],
     ["Artiste", "artist-credit", 0, "name"],
     ["Titre", "title"],
     ["Album", "releases", 0, "title"]
@@ -39,16 +40,18 @@ const options = [
 ]
 
 /* elements to fill modal page */
-let modalElements = [];
+let recordingsMbid = [];
+let releasesMbid = [];
+
 /* same use as headerTable but to display modal elements */
 const modalElementList = [
-    ['id', 'id'], 
-    ['titre', 'title'], 
-    ['artiste'], 
-    ['album'], 
+    // ['id', 'id'], 
+    // ['titre', 'title'], 
+    // ['artiste'], 
+    // ['album'], 
     ['genre', 'tags'], 
     ['durée', 'length'], 
-    ['note', 'rating']];
+    ['note', 'rating', 'value']];
 
 /*  functions  */
 
@@ -60,9 +63,11 @@ form.addEventListener('submit', (ev) => {
     results.textContent = "";
     tableBody.innerHTML = "";
     buttonList.innerHTML = "";
+    releasesMbid = [];
+    recordingsMbid = []; 
     buttonList.setAttribute('hidden', '');
     numberList = 1;
-    wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, getRecordingMbid);
+    wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable);
 })
 
 /* to close modal window */
@@ -71,13 +76,14 @@ modaleCross.addEventListener('click', () => {
 })
 
 
-function addButtonAction(tableRow) {
+function addButtonAction(tableRow, offset) {
     const actionColumn = document.createElement('td');
     const actionColumnButton = document.createElement('button');
     actionColumnButton.addEventListener('click', () => {
+        console.log(recordingsMbid[tableRow.children[0].textContent - 1 - offset]);
         modalList.innerHTML = '';
         modale.removeAttribute('hidden');
-        requestForModal(modalElements[tableRow.children[0].textContent - 1], displayModal, tableRow);
+        requestForModal(recordingsMbid[tableRow.children[0].textContent - 1 - offset], displayModal, tableRow, offset);
     })
     actionColumnButton.textContent = 'plus';
     actionColumn.appendChild(actionColumnButton);  
@@ -98,10 +104,19 @@ function urlForRequest(word, field) {
         return "https://musicbrainz.org/ws/2/recording?query=" + field + ":\"" + word + "\"&fmt=json"
     }
 }
+
+function dispatchResultForTable(response, offset) {
+    displayResult(response['recordings'], response['count'], offset);
+    getRecordingsMbid(response['recordings']);
+    getReleasesMbid(response['recordings']);
+}
   
 
 function displayTableHeader(headerTable) {
     /*  to display titles with the first item of headerTable */
+    const newHeaderItem = document.createElement('th');
+    newHeaderItem.textContent = "#";
+    tableHead.appendChild(newHeaderItem);
     for (const item of headerTable) {
         const newHeaderItem = document.createElement('th');
         newHeaderItem.textContent = item[0];
@@ -125,65 +140,106 @@ function getOptions(options) {
 }
 
 /*  to get the value for each column of tableHead*/
-function getItemText(itemArray, index, theRecording, offset) {
+function getItemText(itemArray, theRecording) {
     let text = theRecording;
-    console.log('le recording: ', theRecording);
-    if (itemArray[0] === '#') {
-        text = offset + index + 1;
-    } else {
+    //if (itemArray[0] === '#') {
+    //    text = offset + index + 1;
+    //} else {
         /* itemArray from 1 to the end is the path to get value  */
         for (let i = 1; i < itemArray.length; i++) {
-            console.log('le item array: ', itemArray);
-            console.log('élément de itemArray:', itemArray[i]);
-            console.log('le texte: ', text[itemArray[i]]);
             text = text[itemArray[i]];
             if (text === undefined) { return 'aucun'}
         }
-    }
+    //}
     return text
 }
 
 function displayResult(response, count, offset) {
-    results.textContent = `${count} résultats`;
+    results.textContent = count.toString() + 'résultats';
     anim.classList.remove('loader');
     for(recording of response) {
         const newRow = document.createElement('tr');
+        const rankItem = document.createElement('td');
+        rankItem.textContent = offset + response.indexOf(recording) + 1;
+        newRow.appendChild(rankItem);
         for (const item of headerTable) {
             const rowItem = document.createElement('td');
-            rowItem.textContent = getItemText(item, response.indexOf(recording), recording, offset);
+            rowItem.textContent = getItemText(item, recording);
             newRow.appendChild(rowItem);
         }
-        addButtonAction(newRow);
+        addButtonAction(newRow, offset);
     }
 }
 
-function displayModal(elementsForModal, tableRow) {
+function convert(data) {
+    data = parseInt(data, 10);
+    const secondes = Math.floor(data/1000)%60;
+    const minutes = Math.floor(data/60000)%60;
+    return minutes + ',' + secondes
+}
+
+function displayModal(elementsForModal, tableRow, offset) {
+    for (const element of headerTable) {
+        const modalElement = document.createElement('li');
+        const elementHeaderContent = document.createElement('span');
+        elementHeaderContent.textContent = element[0] + ": " + tableRow.children[headerTable.indexOf(element) + 1].textContent;
+        modalElement.appendChild(elementHeaderContent);
+        modalList.appendChild(modalElement);
+    }
     for (const element of modalElementList) {
-        if (element[0] !== 'id') {
             const modalElement = document.createElement('li');
+            modalElement.textContent = element[0];
             const elementContent = document.createElement('span');
-            if ((element[0] === 'artiste') || (element[0] === 'album')) {
-                console.log('élément 0: ', element[0]);
-                console.log('index de élément: ', modalElementList.indexOf(element));
-                elementContent.textContent = (tableRow.children[modalElementList.indexOf(element) - 1].textContent)
-            } else {
-                elementContent.textContent = element[0] + ": " + getItemText(element, 0, elementsForModal, 0);
+            let content = getItemText(element, elementsForModal);
+            if (content === null || content.length === 0) {
+                content = "--";
+            } else if (element[0] === 'genre') {
+                let tagList = '';
+                for (const tag of content) {
+                    tagList += tag['name'] + ";";
+                }
+                content = tagList;
+            } else if (element[0] === 'durée') {
+                content = convert(content);
             }
+            elementContent.textContent = ": " + content;
             modalElement.appendChild(elementContent);
             modalList.appendChild(modalElement);
         }
+    const releases = releasesMbid[tableRow.children[0].textContent - 1 - offset];
+    for (const release of releases) {
+        requestForCover(release, addCover); 
     }
 }
 
-/* to fill  modalElements with MBID's recording */
-function getRecordingMbid(recordings) {
+function addCover(images) {
+    if (images !== 'pas d\'image') {
+        coverList.textContent = '';
+        for (const image of images) {
+            const imageLi = document.createElement('li');
+            const img = document.createElement('img');
+            img.setAttribute('src', image['thumbnails']['small']);
+            imageLi.appendChild(img);
+            coverList.appendChild(imageLi);
+        }
+    }
+}
+
+function getReleasesMbid(recordings) {
     for (const recording of recordings) {
-        modalElements.push(recording['id']);
+        let releasesForOneRecording = [];
+        for (const release of recording['releases']) {
+            releasesForOneRecording.push(release['id']);
+        }
+        releasesMbid.push(releasesForOneRecording);
     }
 }
 
-function getElementsForModal(response) {
-
+/* to fill  recordingsMbid with MBID's recording */
+function getRecordingsMbid(recordings) {
+    for (const recording of recordings) {
+        recordingsMbid.push(recording['id']);
+    }
 }
 
 displayTableHeader(headerTable);

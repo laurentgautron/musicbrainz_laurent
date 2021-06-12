@@ -3,14 +3,15 @@ const buttonList = document.querySelector('.buttonList');
 function newPage(button) {
     button.addEventListener('click', () => {
         if (button.className !== 'number actualPage') {
-            console.log('après');
             const actual = buttonList.querySelector(".actualPage");
             actual.classList.remove('actualPage');
             button.classList.add('actualPage');
             tableBody.innerHTML = "";
+            recordingsMbid = [];
+            releasesMbid = [];
             const offset = (parseInt(button.textContent, 10) - 1) * 25
             modalElements = [];
-            wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, getRecordingMbid, offset);
+            wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, offset);
         }
     })
 }
@@ -30,8 +31,9 @@ function addLimitElement(node, elemetList) {
                 tableBody.innerHTML = "";
                 displayButton(numberList);
                 const page = document.querySelector('.actualPage');
-                const offset =(parseInt(page.textContent, 10) - 1) * 25
-                wordRequest(urlForRequest(searchedWord.value, searchedField.value), displayResult, getModalElements, offset);
+                const offset =(parseInt(page.textContent, 10) - 1) * 25;
+                console.log('le offset: ', offset);
+                wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, offset);
             })
         } else if ((parseInt(button.textContent, 10) === 1) || (parseInt(button.textContent, 10) === nbPages)) {
             button.classList.add('number');
