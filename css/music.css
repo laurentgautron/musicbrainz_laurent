@@ -138,8 +138,18 @@ address {
   text-shadow: none;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+header .researchform {
+  display: flex;
+  justify-content: center;
+}
 header .container {
-  background-color: #7e5d5d;
+  background-color: #d26767;
 }
 header .container h1 {
   text-align: center;
@@ -150,14 +160,14 @@ header .container form {
   justify-content: center;
   align-items: center;
 }
-header .container form > div {
+header .container form div {
   display: flex;
   flex-direction: column;
 }
-header .container form > div label {
+header .container form div label {
   padding-left: 6px;
 }
-header .container form > div, header .container form button {
+header .container form div, header .container form button {
   margin-left: 3px;
   margin-right: 3px;
 }
@@ -172,40 +182,42 @@ header .container form button {
   font-size: 2rem;
   border: 0;
   border-radius: 5px;
-  align-self: center;
-  height: 5.5rem;
-  width: 11rem;
+  align-self: flex-end;
   background-color: #fff;
 }
 header .container .results {
-  text-align: center;
-  margin-right: 10rem;
-  margin-left: 10rem;
+  align-self: baseline;
 }
 
-main .container {
-  background-color: rgba(22, 119, 158, 0.849);
-}
 main .container table {
   margin-right: auto;
   margin-left: auto;
   border-collapse: collapse;
 }
-main .container table tr {
+main .container table thead {
+  position: sticky;
+  top: 112px;
+  right: 0;
+  left: 0;
+}
+main .container table tr, main .container table th {
   font-size: 2.7rem;
 }
 main .container table td, main .container table th, main .container table tr {
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 1.5rem 2rem;
   text-align: center;
 }
-main .container table td:nth-child(5),
-main .container table th:nth-child(5) {
-  padding-right: 3rem;
+main .container table th {
+  margin-left: 5rem;
+  margin-right: 5rem;
+  color: blue;
+  background-color: #16779e;
 }
-main .container table td:nth-child(1),
 main .container table th:nth-child(1) {
-  padding-left: 3rem;
+  width: 2%;
+}
+main .container table th:nth-child(5) {
+  width: 6%;
 }
 main .container table tbody tr:nth-child(odd) {
   background-color: #195bd4;
@@ -214,6 +226,11 @@ main .container table tbody tr:nth-child(odd) {
 main .container table tbody tr:not(:nth-child(odd)) {
   background-color: aqua;
   color: #195bd4;
+}
+main .container table tbody td button {
+  width: 5rem;
+  background-color: #0a84ee;
+  border: none;
 }
 
 .pagination {
@@ -224,6 +241,7 @@ main .container table tbody tr:not(:nth-child(odd)) {
   font-size: 0;
 }
 .pagination .buttonList {
+  padding: 0.5rem;
   border-bottom-right-radius: 2rem;
   border-top-right-radius: 2rem;
   border-bottom-left-radius: 2rem;
@@ -247,35 +265,24 @@ main .container table tbody tr:not(:nth-child(odd)) {
 .pagination .buttonList li button.actualPage, .pagination .buttonList li button:not(.dots):hover {
   background-color: #fff;
 }
-.pagination .buttonList li button.number {
-  width: 4.7rem;
-  border-radius: 50%;
-}
-.pagination .buttonList li button.Prev {
+.pagination .buttonList li button.prev {
   border-top-left-radius: 2rem;
   border-bottom-left-radius: 2rem;
 }
-.pagination .buttonList li button.Next {
+.pagination .buttonList li button.next {
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }
-.pagination .buttonList li button.lastPage {
-  width: inherit;
+.pagination .buttonList li button.number, .pagination .buttonList li button.prev, .pagination .buttonList li button.next {
+  margin: 0.5rem;
 }
 .pagination .buttonList li button.dots {
   cursor: inherit;
 }
 
-.prev, .next {
-  border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
-  background: #099c9c;
-}
-
 body {
-  color: rgba(77, 193, 197, 0.548);
+  background-color: #d26767;
+  color: #eee5e5;
   width: 100vw;
   position: relative;
 }
@@ -296,9 +303,7 @@ body {
   left: 0;
   right: 0;
   background-color: black;
-  /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
 .modale .content {
   overflow: scroll;
@@ -310,16 +315,18 @@ body {
   width: 50%;
   height: 50%;
 }
-.modale .content .modaleCross {
+.modale .modaleCross {
+  z-index: 45;
   margin-right: 2rem;
   border: none;
   background-color: green;
   position: absolute;
-  right: 0;
-  top: 0;
+  left: 70%;
+  top: 30%;
+  transform: translate(-50%, -50%);
   color: blue;
 }
-.modale .content .coverList {
+.modale .coverList {
   display: flex;
 }
 
@@ -357,6 +364,10 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.message div {
+  text-align: center;
 }
 
 /*# sourceMappingURL=music.css.map */

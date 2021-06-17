@@ -3,7 +3,9 @@ let numberList = 1;
 let nbListOfButton = 0;
 let nbPages = 0;
 
-function wordRequest(url, callbackResult, offset = 0, ) {
+
+/* get recordings for the word and option */
+function wordRequest(url, callbackSucces, offset = 0, ) {
     const urlRequest = url + "&offset=" + offset;
     let request = new XMLHttpRequest();
     request.open('GET', urlRequest);
@@ -12,7 +14,7 @@ function wordRequest(url, callbackResult, offset = 0, ) {
             if (request.status === 200) {
                 const response = JSON.parse(request.responseText);
                 if (response['recordings'].length !== 0) {
-                    callbackResult(response, offset);
+                    callbackSucces(response, offset);
                     nbPages = Math.ceil(response['count']/25);
                     nbListOfButton = Math.ceil(nbPages/nbButtonPerPage);
                     if (buttonList.hidden) {
@@ -32,6 +34,7 @@ function wordRequest(url, callbackResult, offset = 0, ) {
     request.send();
 }
 
+/*  get rating, tags and length on click button action*/
 function requestForModal(mbid, callbackModal, row, offset) {
     const urlRequest = "http://musicbrainz.org/ws/2/recording/" + mbid + "?inc=tags+ratings&fmt=json";
     let request = new XMLHttpRequest();
@@ -47,6 +50,7 @@ function requestForModal(mbid, callbackModal, row, offset) {
     });
     request.send();
 }
+
 
 function requestForCover(releasesMbid, callbackCover) {
     const urlRequest = "http://coverartarchive.org/release/" + releasesMbid;

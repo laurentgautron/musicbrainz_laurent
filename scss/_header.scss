@@ -1,47 +1,54 @@
 
-header .container {
-  background-color: rgb(126, 93, 93);
-  h1 {
-    text-align: center;
-  }
-  form {
-    padding-bottom: 1rem;
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  .researchform {
     display: flex;
     justify-content: center;
-    align-items: center;
-    > div {
+  }
+  .container {
+    background-color: #d26767;
+    h1 {
+      text-align: center;
+    }
+    form {
+      padding-bottom: 1rem;
       display: flex;
-      flex-direction: column;
-      label {
-        padding-left: 6px;
+      justify-content: center;
+      align-items: center;
+      div {
+        display: flex;
+        flex-direction: column;
+        label {
+          padding-left: 6px;
+        }
+      }
+      div, button {
+        margin-left: 3px;
+        margin-right: 3px;
+      }
+      #wordfield {
+        width: 15rem;
+      }
+      #requestfield {
+        padding-left: 9px;
+        width: 45rem;
+      }
+      button {
+        font-size: 2rem;
+        border: 0;
+        border-radius: 5px;
+        align-self: flex-end;
+        background-color: #fff;
       }
     }
-    > div, button {
-      margin-left: 3px;
-      margin-right: 3px;
+    .results {
+      align-self: baseline;
     }
-    #wordfield {
-      width: 15rem;
-    }
-    #requestfield {
-      padding-left: 9px;
-      width: 45rem;
-    }
-    button {
-      font-size: 2rem;
-      border: 0;
-      border-radius: 5px;
-      align-self: center;
-      height: 5.5rem;
-      width: 11rem;
-      background-color: #fff;
-    }
-  }
-  .results {
-    text-align: center;
-    margin-right: 10rem;
-    margin-left: 10rem;
   }
 }
+
 
 

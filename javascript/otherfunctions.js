@@ -12,6 +12,7 @@ const searchedField = document.querySelector('#field');
 /* page elements */
 const anim = document.querySelector('.anim span');
 const results = document.querySelector('.results');
+const message = document.querySelector('.message');
 
 /* modal elements */
 const modale = document.querySelector('.modale');
@@ -63,6 +64,7 @@ form.addEventListener('submit', (ev) => {
     results.textContent = "";
     tableBody.innerHTML = "";
     buttonList.innerHTML = "";
+    message.innerHTML = "";
     releasesMbid = [];
     recordingsMbid = []; 
     buttonList.setAttribute('hidden', '');
@@ -73,6 +75,7 @@ form.addEventListener('submit', (ev) => {
 /* to close modal window */
 modaleCross.addEventListener('click', () => {
     modale.setAttribute('hidden', '');
+    coverList.innerHTML = "";
 })
 
 
@@ -81,11 +84,12 @@ function addButtonAction(tableRow, offset) {
     const actionColumnButton = document.createElement('button');
     actionColumnButton.addEventListener('click', () => {
         console.log(recordingsMbid[tableRow.children[0].textContent - 1 - offset]);
+        console.log('plus image');
         modalList.innerHTML = '';
         modale.removeAttribute('hidden');
         requestForModal(recordingsMbid[tableRow.children[0].textContent - 1 - offset], displayModal, tableRow, offset);
     })
-    actionColumnButton.textContent = 'plus';
+    actionColumnButton.textContent = '+';
     actionColumn.appendChild(actionColumnButton);  
     tableRow.appendChild(actionColumn);
     tableBody.appendChild(tableRow);

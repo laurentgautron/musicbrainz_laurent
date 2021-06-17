@@ -23,10 +23,10 @@ function addLimitElement(node, elemetList) {
         button.textContent = element;
         li.appendChild(button);
         node.appendChild(li);
-        if ((button.textContent === 'Prev') || (button.textContent === 'Next')) {
+        if ((button.textContent === 'prev') || (button.textContent === 'next')) {
             button.classList.add(button.textContent);
             button.addEventListener('click', () => {
-                numberList += (button.textContent === 'Prev') ? -1 : 1 ;
+                numberList += (button.textContent === 'prev') ? -1 : 1 ;
                 buttonList.innerHTML = "";
                 tableBody.innerHTML = "";
                 displayButton(numberList);
@@ -49,7 +49,7 @@ function addLimitElement(node, elemetList) {
 
 function displayButton(numberList) {
     if ((numberList > 1) && (numberList <= nbListOfButton)) {
-        addLimitElement(buttonList, ['Prev', 1, '...']);
+        addLimitElement(buttonList, ['prev', 1, '...']);
     }
     for (let i = 1; i <= nbButtonPerPage; i++) {
         const li = document.createElement('li');
@@ -68,6 +68,6 @@ function displayButton(numberList) {
         newPage(button);
     }
     if (numberList < nbListOfButton) {
-        addLimitElement(buttonList, ['...', nbPages, 'Next']);
+        addLimitElement(buttonList, ['...', nbPages, 'next']);
     }
 }

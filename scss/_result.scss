@@ -1,25 +1,33 @@
 main {
     .container {
-        background-color: rgba(22, 119, 158, 0.849);
         table {
             margin-right: auto;
             margin-left: auto;
             border-collapse: collapse;
-            tr {
+            thead {
+                position: sticky;
+                top: 112px;
+                right: 0;
+                left: 0;
+            }
+            tr, th {
                 font-size: 2.7rem;
             }
             td, th, tr {
-                padding-left: 2rem;
-                padding-right: 2rem;
+                padding: 1.5rem 2rem;
                 text-align: center;
             }
-            td:nth-child(5),
-            th:nth-child(5) {
-                padding-right: 3rem;
+            th {
+                margin-left: 5rem;
+                margin-right: 5rem;
+                color: blue;
+                background-color: rgba(22, 119, 158);
             }
-            td:nth-child(1),
             th:nth-child(1) {
-                padding-left: 3rem;
+                width: 2%;
+            }
+            th:nth-child(5) {
+                width: 6%;
             }
             tbody {
                 tr:nth-child(odd) {
@@ -29,6 +37,13 @@ main {
                 tr:not(:nth-child(odd)) {
                     background-color: aqua;
                     color: rgb(25, 91, 212);
+                }
+                td {
+                    button {
+                        width: 5rem;
+                        background-color: #0a84ee;
+                        border: none;
+                    }
                 }
             }
         }
