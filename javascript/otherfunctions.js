@@ -64,18 +64,18 @@ form.addEventListener('submit', (ev) => {
     results.textContent = "";
     tableBody.innerHTML = "";
     buttonList.innerHTML = "";
+    buttonList.style.display = "flex";
     message.innerHTML = "";
     releasesMbid = [];
     recordingsMbid = []; 
     buttonList.setAttribute('hidden', '');
     numberList = 1;
-    wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable);
+    wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual);
 })
 
 /* to close modal window */
 modaleCross.addEventListener('click', () => {
     modale.setAttribute('hidden', '');
-    coverList.innerHTML = "";
 })
 
 
@@ -86,6 +86,7 @@ function addButtonAction(tableRow, offset) {
         console.log(recordingsMbid[tableRow.children[0].textContent - 1 - offset]);
         console.log('plus image');
         modalList.innerHTML = '';
+        coverList.innerHTML = "";
         modale.removeAttribute('hidden');
         requestForModal(recordingsMbid[tableRow.children[0].textContent - 1 - offset], displayModal, tableRow, offset);
     })
@@ -109,7 +110,8 @@ function urlForRequest(word, field) {
     }
 }
 
-function dispatchResultForTable(response, offset) {
+function dispatchResultForTable(response, indexButton, offset) {
+    displayButton(numberList, indexButton);
     displayResult(response['recordings'], response['count'], offset);
     getRecordingsMbid(response['recordings']);
     getReleasesMbid(response['recordings']);
@@ -159,7 +161,8 @@ function getItemText(itemArray, theRecording) {
 }
 
 function displayResult(response, count, offset) {
-    results.textContent = count.toString() + 'résultats';
+    buttonList.style.display = "flex";
+    results.textContent = count.toString() + ' résultats';
     anim.classList.remove('loader');
     for(recording of response) {
         const newRow = document.createElement('tr');

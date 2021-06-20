@@ -7,14 +7,16 @@ header {
   .researchform {
     display: flex;
     justify-content: center;
+    align-items: flex-end;
+    position: relative;
   }
   .container {
+    padding-bottom: 1rem;
     background-color: #d26767;
     h1 {
       text-align: center;
     }
     form {
-      padding-bottom: 1rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -45,7 +47,10 @@ header {
       }
     }
     .results {
-      align-self: baseline;
+      align-self: flex-end;
+      justify-self: unset;
+      position: absolute;
+      right: 10rem;      
     }
   }
 }

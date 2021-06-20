@@ -5,7 +5,7 @@ let nbPages = 0;
 
 
 /* get recordings for the word and option */
-function wordRequest(url, callbackSucces, offset = 0, ) {
+function wordRequest(url, callbackSucces, indexButton, offset = 0, ) {
     const urlRequest = url + "&offset=" + offset;
     let request = new XMLHttpRequest();
     request.open('GET', urlRequest);
@@ -14,13 +14,9 @@ function wordRequest(url, callbackSucces, offset = 0, ) {
             if (request.status === 200) {
                 const response = JSON.parse(request.responseText);
                 if (response['recordings'].length !== 0) {
-                    callbackSucces(response, offset);
                     nbPages = Math.ceil(response['count']/25);
                     nbListOfButton = Math.ceil(nbPages/nbButtonPerPage);
-                    if (buttonList.hidden) {
-                        buttonList.removeAttribute('hidden');
-                        displayButton(numberList);
-                    }
+                    callbackSucces(response, indexButton, offset);
                 }
                 else {
                     console.log('aucun résultat');
