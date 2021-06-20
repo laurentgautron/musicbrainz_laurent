@@ -32,6 +32,7 @@ function addLimitElement(node, elemetList) {
             button.classList.add(button.textContent);
             //displayButton(numberList);
             button.addEventListener('click', () => {
+                buttonList.style.display = "none";
                 numberList += (button.textContent === 'prev') ? -1 : 1 ;
                 buttonList.innerHTML = "";
                 newPage(button);

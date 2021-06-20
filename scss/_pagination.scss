@@ -10,13 +10,14 @@
       border-top-right-radius: 2rem;
       border-bottom-left-radius: 2rem;
       border-top-left-radius: 2rem;
-      background-color: rgb(9, 156, 156);
+      background-color: rgba(22, 119, 158);
       display: none;
     li {
       margin-left: 2px;
       margin-right: 2px;
       cursor: default;
       button {
+        color: blue;
         background: none;
         font-size: 30px;
         border: 0;

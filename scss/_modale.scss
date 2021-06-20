@@ -9,20 +9,24 @@
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
     .content {
+        font-weight: 700;
         overflow: scroll;
-        background-color: green;
+        background-color: #d26767;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 50%;
         height: 50%;
+        span {
+            font-weight: 400;
+        }
     }
     .modaleCross {
         z-index: 45;
         margin-right: 2rem;
         border: none;
-        background-color: green;
+        background-color: #d26767;
         position: absolute;
         right: 21%;
         top: 28%;
@@ -30,6 +34,7 @@
         color: blue;
     }
     .coverList {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
     }
 }

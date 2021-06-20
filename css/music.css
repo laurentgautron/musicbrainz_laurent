@@ -188,8 +188,7 @@ header .container form button {
   background-color: #fff;
 }
 header .container .results {
-  align-self: flex-end;
-  justify-self: unset;
+  font-size: 2rem;
   position: absolute;
   right: 10rem;
 }
@@ -251,7 +250,7 @@ main .container table tbody td button {
   border-top-right-radius: 2rem;
   border-bottom-left-radius: 2rem;
   border-top-left-radius: 2rem;
-  background-color: #099c9c;
+  background-color: #16779e;
   display: none;
 }
 .pagination .buttonList li {
@@ -260,6 +259,7 @@ main .container table tbody td button {
   cursor: default;
 }
 .pagination .buttonList li button {
+  color: blue;
   background: none;
   font-size: 30px;
   border: 0;
@@ -287,7 +287,7 @@ main .container table tbody td button {
 
 body {
   background-color: #d26767;
-  color: #eee5e5;
+  color: #6c1212;
   width: 100vw;
   position: relative;
 }
@@ -311,8 +311,9 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .modale .content {
+  font-weight: 700;
   overflow: scroll;
-  background-color: green;
+  background-color: #d26767;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -320,11 +321,14 @@ body {
   width: 50%;
   height: 50%;
 }
+.modale .content span {
+  font-weight: 400;
+}
 .modale .modaleCross {
   z-index: 45;
   margin-right: 2rem;
   border: none;
-  background-color: green;
+  background-color: #d26767;
   position: absolute;
   right: 21%;
   top: 28%;
@@ -332,7 +336,8 @@ body {
   color: blue;
 }
 .modale .coverList {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .anim {
@@ -371,7 +376,7 @@ body {
   }
 }
 
-.message div {
+.message {
   text-align: center;
 }
 

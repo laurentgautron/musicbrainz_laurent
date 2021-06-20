@@ -46,10 +46,6 @@ let releasesMbid = [];
 
 /* same use as headerTable but to display modal elements */
 const modalElementList = [
-    // ['id', 'id'], 
-    // ['titre', 'title'], 
-    // ['artiste'], 
-    // ['album'], 
     ['genre', 'tags'], 
     ['durée', 'length'], 
     ['note', 'rating', 'value']];
@@ -64,13 +60,18 @@ form.addEventListener('submit', (ev) => {
     results.textContent = "";
     tableBody.innerHTML = "";
     buttonList.innerHTML = "";
-    buttonList.style.display = "flex";
+    buttonList.style.display = "none";
     message.innerHTML = "";
     releasesMbid = [];
     recordingsMbid = []; 
     buttonList.setAttribute('hidden', '');
     numberList = 1;
-    wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual);
+    if (searchedWord.value) {
+        wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual);
+    } else {
+        anim.classList.remove('loader');
+        message.textContent = "aucune recherche en entrée";
+    }
 })
 
 /* to close modal window */
@@ -83,8 +84,6 @@ function addButtonAction(tableRow, offset) {
     const actionColumn = document.createElement('td');
     const actionColumnButton = document.createElement('button');
     actionColumnButton.addEventListener('click', () => {
-        console.log(recordingsMbid[tableRow.children[0].textContent - 1 - offset]);
-        console.log('plus image');
         modalList.innerHTML = '';
         coverList.innerHTML = "";
         modale.removeAttribute('hidden');
@@ -148,9 +147,6 @@ function getOptions(options) {
 /*  to get the value for each column of tableHead*/
 function getItemText(itemArray, theRecording) {
     let text = theRecording;
-    //if (itemArray[0] === '#') {
-    //    text = offset + index + 1;
-    //} else {
         /* itemArray from 1 to the end is the path to get value  */
         for (let i = 1; i < itemArray.length; i++) {
             text = text[itemArray[i]];
@@ -186,10 +182,12 @@ function convert(data) {
 }
 
 function displayModal(elementsForModal, tableRow, offset) {
+    coverList.innerHTML = "";
     for (const element of headerTable) {
         const modalElement = document.createElement('li');
+        modalElement.textContent = element[0];
         const elementHeaderContent = document.createElement('span');
-        elementHeaderContent.textContent = element[0] + ": " + tableRow.children[headerTable.indexOf(element) + 1].textContent;
+        elementHeaderContent.textContent = ": " + tableRow.children[headerTable.indexOf(element) + 1].textContent;
         modalElement.appendChild(elementHeaderContent);
         modalList.appendChild(modalElement);
     }
@@ -207,7 +205,7 @@ function displayModal(elementsForModal, tableRow, offset) {
                 }
                 content = tagList;
             } else if (element[0] === 'durée') {
-                content = convert(content);
+                content = convert(content) + ' minutes';
             }
             elementContent.textContent = ": " + content;
             modalElement.appendChild(elementContent);
@@ -221,7 +219,6 @@ function displayModal(elementsForModal, tableRow, offset) {
 
 function addCover(images) {
     if (images !== 'pas d\'image') {
-        coverList.textContent = '';
         for (const image of images) {
             const imageLi = document.createElement('li');
             const img = document.createElement('img');
