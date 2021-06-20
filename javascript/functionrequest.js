@@ -58,7 +58,7 @@ function requestForCover(releasesMbid, callbackCover) {
                 const rep = JSON.parse(request.responseText)['images'];
                 callbackCover(rep);
             } else {
-                callbackCover('pas d\'image');
+                callbackCover('aucune image');
             }
         }
     });

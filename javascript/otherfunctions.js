@@ -85,7 +85,10 @@ function addButtonAction(tableRow, offset) {
     const actionColumnButton = document.createElement('button');
     actionColumnButton.addEventListener('click', () => {
         modalList.innerHTML = '';
-        coverList.innerHTML = "";
+        const modalLi = document.createElement('li');
+        modalLi.textContent = "pas d'image(s) pour ce titre";
+        console.log(modalLi.textContent);
+        coverList.appendChild(modalLi);
         modale.removeAttribute('hidden');
         requestForModal(recordingsMbid[tableRow.children[0].textContent - 1 - offset], displayModal, tableRow, offset);
     })
@@ -182,7 +185,6 @@ function convert(data) {
 }
 
 function displayModal(elementsForModal, tableRow, offset) {
-    coverList.innerHTML = "";
     for (const element of headerTable) {
         const modalElement = document.createElement('li');
         modalElement.textContent = element[0];
@@ -213,18 +215,22 @@ function displayModal(elementsForModal, tableRow, offset) {
         }
     const releases = releasesMbid[tableRow.children[0].textContent - 1 - offset];
     for (const release of releases) {
-        requestForCover(release, addCover); 
+        if (release) {
+            requestForCover(release, addCover); 
+        }
     }
 }
 
 function addCover(images) {
-    if (images !== 'pas d\'image') {
+    if (images !== 'aucune image') {
         for (const image of images) {
             const imageLi = document.createElement('li');
             const img = document.createElement('img');
-            img.setAttribute('src', image['thumbnails']['small']);
-            imageLi.appendChild(img);
-            coverList.appendChild(imageLi);
+            if (image['thumbnails']) {
+                img.setAttribute('src', image['thumbnails']['small']);
+                imageLi.appendChild(img);
+                coverList.appendChild(imageLi);
+            }
         }
     }
 }
@@ -232,10 +238,12 @@ function addCover(images) {
 function getReleasesMbid(recordings) {
     for (const recording of recordings) {
         let releasesForOneRecording = [];
-        for (const release of recording['releases']) {
-            releasesForOneRecording.push(release['id']);
+        if (recording['releases']) {
+            for (const release of recording['releases']) {
+                releasesForOneRecording.push(release['id']);
+            }
+            releasesMbid.push(releasesForOneRecording);
         }
-        releasesMbid.push(releasesForOneRecording);
     }
 }
 
