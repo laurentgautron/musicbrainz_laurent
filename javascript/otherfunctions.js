@@ -28,7 +28,6 @@ let clickOnCross = false;
     first element is column's title for the header table 
     other elements are path to get value in response  of request */
 const headerTable = [
-    //["#","rank"],
     ["Artiste", "artist-credit", 0, "name"],
     ["Titre", "title"],
     ["Album", "releases", 0, "title"]
@@ -67,7 +66,6 @@ form.addEventListener('submit', (ev) => {
     coverList.innerHTML = "";
     releasesMbid = [];
     recordingsMbid = []; 
-    //buttonList.setAttribute('hidden', '');
     numberList = 1;
     if (searchedWord.value) {
         wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual);
