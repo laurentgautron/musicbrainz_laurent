@@ -19,6 +19,8 @@ const modale = document.querySelector('.modale');
 const modaleCross = document.querySelector('.modaleCross');
 const modalList = document.querySelector('.modalList');
 const coverList = document.querySelector('.coverList');
+const modalMessage = document.querySelector('.modalMessage');
+let clickOnCross = false;
 
 /* variables */
 
@@ -62,9 +64,10 @@ form.addEventListener('submit', (ev) => {
     buttonList.innerHTML = "";
     buttonList.style.display = "none";
     message.innerHTML = "";
+    coverList.innerHTML = "";
     releasesMbid = [];
     recordingsMbid = []; 
-    buttonList.setAttribute('hidden', '');
+    //buttonList.setAttribute('hidden', '');
     numberList = 1;
     if (searchedWord.value) {
         wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual);
@@ -76,6 +79,9 @@ form.addEventListener('submit', (ev) => {
 
 /* to close modal window */
 modaleCross.addEventListener('click', () => {
+    clickOnCross = true;
+    coverList.innerHTML = "";
+    modalList.innerHTML = "";
     modale.setAttribute('hidden', '');
 })
 
@@ -180,22 +186,19 @@ function convert(data) {
 }
 
 function displayModal(elementsForModal, tableRow, offset) {
-    coverList.innerHTML = "";
-    const modalLi = document.createElement('li');
-    modalLi.textContent = "pas d'image(s) pour ce titre";
-    console.log(modalLi.textContent);
-    coverList.appendChild(modalLi);
+    clickOnCross = false;
+    modalMessage.textContent = "pas d'images pour ce titre";
     for (const element of headerTable) {
         const modalElement = document.createElement('li');
-        modalElement.textContent = element[0];
+        modalElement.textContent = element[0] + " :";
         const elementHeaderContent = document.createElement('span');
-        elementHeaderContent.textContent = ": " + tableRow.children[headerTable.indexOf(element) + 1].textContent;
+        elementHeaderContent.textContent = tableRow.children[headerTable.indexOf(element) + 1].textContent;
         modalElement.appendChild(elementHeaderContent);
         modalList.appendChild(modalElement);
     }
     for (const element of modalElementList) {
             const modalElement = document.createElement('li');
-            modalElement.textContent = element[0];
+            modalElement.textContent = element[0] + " :";
             const elementContent = document.createElement('span');
             let content = getItemText(element, elementsForModal);
             if (content === null || content.length === 0) {
@@ -209,14 +212,17 @@ function displayModal(elementsForModal, tableRow, offset) {
             } else if (element[0] === 'durée') {
                 content = convert(content) + ' minutes';
             }
-            elementContent.textContent = ": " + content;
+            elementContent.textContent = content;
             modalElement.appendChild(elementContent);
             modalList.appendChild(modalElement);
         }
+    // there is an array of releases for each line of the table which content 0 or many releases 
     const releases = releasesMbid[tableRow.children[0].textContent - 1 - offset];
-    for (const release of releases) {
-        if (release) {
-            requestForCover(release, addCover); 
+    if (releases) {
+        for (const release of releases) {
+            if (!clickOnCross) {
+                requestForCover(release, addCover); 
+            }
         }
     }
 }
@@ -226,11 +232,11 @@ function addCover(images) {
         for (const image of images) {
             const imageLi = document.createElement('li');
             const img = document.createElement('img');
-            if (image['thumbnails']) {
-                coverList.innerHTML = "";
+            if (image['thumbnails'] && !clickOnCross) {
                 img.setAttribute('src', image['thumbnails']['small']);
                 imageLi.appendChild(img);
                 coverList.appendChild(imageLi);
+                modalMessage.textContent = "";
             }
         }
     }

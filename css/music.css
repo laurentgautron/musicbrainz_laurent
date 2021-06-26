@@ -311,6 +311,8 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .modale .content {
+  padding-top: 1rem;
+  padding-left: 1rem;
   font-size: 2rem;
   font-weight: 700;
   overflow: scroll;
@@ -323,7 +325,11 @@ body {
   height: 50%;
 }
 .modale .content span {
+  padding-left: 2rem;
   font-weight: 400;
+}
+.modale .content li::first-letter {
+  text-transform: capitalize;
 }
 .modale .modaleCross {
   z-index: 45;
@@ -337,8 +343,12 @@ body {
   color: blue;
 }
 .modale .coverList {
+  padding-top: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+.modale .modalMessage {
+  text-align: center;
 }
 
 .anim {
