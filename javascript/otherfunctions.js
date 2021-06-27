@@ -20,6 +20,8 @@ const modaleCross = document.querySelector('.modaleCross');
 const modalList = document.querySelector('.modalList');
 const coverList = document.querySelector('.coverList');
 const modalMessage = document.querySelector('.modalMessage');
+const modalTitle = document.querySelector('.modaltitle');
+const modalAlbum = document.querySelector('.modalalbum');
 let clickOnCross = false;
 
 /* variables */
@@ -68,7 +70,7 @@ form.addEventListener('submit', (ev) => {
     recordingsMbid = []; 
     numberList = 1;
     if (searchedWord.value) {
-        wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual);
+        wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, displayError, indexButtonActual);
     } else {
         anim.classList.remove('loader');
         message.textContent = "aucune recherche en entrée";
@@ -176,21 +178,32 @@ function displayResult(response, count, offset) {
     }
 }
 
+function displayError(response) {
+     message.textContent = response
+}
+
 function convert(data) {
     data = parseInt(data, 10);
     const secondes = Math.floor(data/1000)%60;
     const minutes = Math.floor(data/60000)%60;
-    return minutes + ',' + secondes
+    return minutes + ', ' + secondes
 }
 
 function displayModal(elementsForModal, tableRow, offset) {
     clickOnCross = false;
+    //modalTitle.textContent = tableRow.children[headerTable.indexOf(element) + 1].textContent;
+    //modalAlbum.textContent = tableRow.children[headerTable.indexOf(element) + 1].textContent;
     modalMessage.textContent = "pas d'images pour ce titre";
     for (const element of headerTable) {
         const modalElement = document.createElement('li');
         modalElement.textContent = element[0] + " :";
         const elementHeaderContent = document.createElement('span');
         elementHeaderContent.textContent = tableRow.children[headerTable.indexOf(element) + 1].textContent;
+        if (element[0] === 'Titre') {
+            modalTitle.textContent = elementHeaderContent.textContent;
+        } else if (element[0] === 'Album') {
+            modalAlbum.textContent = elementHeaderContent.textContent;
+        }
         modalElement.appendChild(elementHeaderContent);
         modalList.appendChild(modalElement);
     }

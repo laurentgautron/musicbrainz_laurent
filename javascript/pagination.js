@@ -17,7 +17,7 @@ function newPage(button) {
         }
         modalElements = [];
         buttonList.innerHTML = "";
-        wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, indexButtonActual, offset);
+        wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, displayError, indexButtonActual, offset);
     }
 }
 

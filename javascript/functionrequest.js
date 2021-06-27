@@ -5,7 +5,7 @@ let nbPages = 0;
 
 
 /* get recordings for the word and option */
-function wordRequest(url, callbackSucces, indexButton, offset = 0, ) {
+function wordRequest(url, callbackSucces, callbackError, indexButton, offset = 0, ) {
     const urlRequest = url + "&offset=" + offset;
     let request = new XMLHttpRequest();
     request.open('GET', urlRequest);
@@ -19,7 +19,7 @@ function wordRequest(url, callbackSucces, indexButton, offset = 0, ) {
                     callbackSucces(response, indexButton, offset);
                 }
                 else {
-                    console.log('aucun résultat');
+                    callbackError(response);
                 }  
             }
             else {

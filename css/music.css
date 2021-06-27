@@ -311,8 +311,9 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .modale .content {
-  padding-top: 1rem;
-  padding-left: 1rem;
+  padding: 1rem;
+  padding-top: 0;
+  padding-left: 0;
   font-size: 2rem;
   font-weight: 700;
   overflow: scroll;
@@ -324,14 +325,32 @@ body {
   width: 50%;
   height: 50%;
 }
+.modale .content h2 {
+  padding: 2rem;
+  color: #d26767;
+  background-color: #861010;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 .modale .content span {
   padding-left: 2rem;
   font-weight: 400;
+}
+.modale .content li {
+  padding-top: 1rem;
+  padding-left: 2rem;
+  border-bottom: 2px solid #861010;
 }
 .modale .content li::first-letter {
   text-transform: capitalize;
 }
 .modale .modaleCross {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #6c1212;
   z-index: 45;
   margin-right: 2rem;
   border: none;
@@ -340,7 +359,6 @@ body {
   right: 21%;
   top: 28%;
   transform: translate(-50%, -50%);
-  color: blue;
 }
 .modale .coverList {
   padding-top: 2rem;
