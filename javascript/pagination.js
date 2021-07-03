@@ -17,6 +17,7 @@ function newPage(button) {
         }
         modalElements = [];
         buttonList.innerHTML = "";
+        buttonList.style.display = "none";
         wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, displayError, indexButtonActual, offset);
     }
 }
@@ -30,9 +31,7 @@ function addLimitElement(node, elemetList) {
         node.appendChild(li);
         if ((button.textContent === 'prev') || (button.textContent === 'next')) {
             button.classList.add(button.textContent);
-            //displayButton(numberList);
             button.addEventListener('click', () => {
-                buttonList.style.display = "none";
                 numberList += (button.textContent === 'prev') ? -1 : 1 ;
                 buttonList.innerHTML = "";
                 newPage(button);
@@ -41,6 +40,7 @@ function addLimitElement(node, elemetList) {
             button.classList.add('number');
             button.addEventListener('click', () => {
                 buttonList.innerHTML = "";
+                numberList = parseInt(button.textContent, 10) === 1 ? 1 : nbListOfButton;
                 newPage(button);
             })
             

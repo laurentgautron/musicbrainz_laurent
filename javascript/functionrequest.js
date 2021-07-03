@@ -8,40 +8,41 @@ let nbPages = 0;
 function wordRequest(url, callbackSucces, callbackError, indexButton, offset = 0, ) {
     const urlRequest = url + "&offset=" + offset;
     let request = new XMLHttpRequest();
-    request.open('GET', urlRequest);
+    request.open('GET', urlRequest, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.addEventListener('readystatechange', function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
                 const response = JSON.parse(request.responseText);
-                if (response['recordings'].length !== 0) {
+                if (response['count'] !== 0) {
                     nbPages = Math.ceil(response['count']/25);
                     nbListOfButton = Math.ceil(nbPages/nbButtonPerPage);
                     callbackSucces(response, indexButton, offset);
                 }
                 else {
-                    callbackError(response);
+                    callbackError('Pas de réponse pour cette valeur');
                 }  
             }
             else {
-                console.log('erreur: ', request.responseText);
+                callbackError(request.statusText);
             }
         }
     })
     request.send();
 }
 
-/*  get rating, tags and length on click button action*/
+/*  request to get rating, tags and length on click button action*/
 function requestForModal(mbid, callbackModal, row, offset) {
     const urlRequest = "http://musicbrainz.org/ws/2/recording/" + mbid + "?inc=tags+ratings&fmt=json";
     let request = new XMLHttpRequest();
-    request.open('GET', urlRequest);
+    request.open('GET', urlRequest, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.addEventListener('readystatechange', function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
                 callbackModal(JSON.parse(request.responseText), row, offset);
-            } else {
-                console.log('pas de réponse');
-            }
+            } // I don't deal with http errors here because there will always be something to display in the modal:
+             // at least the album and artist title
         }
     });
     request.send();
@@ -51,7 +52,8 @@ function requestForModal(mbid, callbackModal, row, offset) {
 function requestForCover(releasesMbid, callbackCover) {
     const urlRequest = "http://coverartarchive.org/release/" + releasesMbid;
     let request = new XMLHttpRequest();
-    request.open('GET', urlRequest);
+    request.open('GET', urlRequest, true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.addEventListener('readystatechange', function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {

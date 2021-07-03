@@ -268,6 +268,7 @@ main .container table tbody td button {
   cursor: default;
 }
 .pagination .buttonList li button.actualPage, .pagination .buttonList li button:not(.dots):hover {
+  border-radius: 1rem;
   background-color: #fff;
 }
 .pagination .buttonList li button.prev {
@@ -313,7 +314,7 @@ body {
 .modale .content {
   padding: 1rem;
   padding-top: 0;
-  padding-left: 0;
+  margin-bottom: 1rem;
   font-size: 2rem;
   font-weight: 700;
   overflow: scroll;
@@ -323,10 +324,10 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  height: 50%;
+  height: 80%;
 }
 .modale .content h2 {
-  padding: 2rem;
+  padding: 1rem 0 2rem 2rem;
   color: #d26767;
   background-color: #861010;
   z-index: 10;
@@ -335,13 +336,14 @@ body {
   left: 0;
   right: 0;
 }
-.modale .content span {
-  padding-left: 2rem;
+.modale .content h2 span {
+  padding: 2rem;
   font-weight: 400;
 }
 .modale .content li {
   padding-top: 1rem;
   padding-left: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 2px solid #861010;
 }
 .modale .content li::first-letter {
@@ -352,18 +354,20 @@ body {
   font-weight: 700;
   color: #6c1212;
   z-index: 45;
-  margin-right: 2rem;
   border: none;
   background-color: #d26767;
   position: absolute;
-  right: 21%;
-  top: 28%;
-  transform: translate(-50%, -50%);
+  right: 0%;
+  top: 20%;
+  transform: translate(0, -50%);
 }
 .modale .coverList {
   padding-top: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+.modale .coverList li {
+  border: none;
 }
 .modale .modalMessage {
   text-align: center;
@@ -407,6 +411,7 @@ body {
 
 .message {
   text-align: center;
+  font-size: 4rem;
 }
 
 /*# sourceMappingURL=music.css.map */

@@ -73,7 +73,7 @@ form.addEventListener('submit', (ev) => {
         wordRequest(urlForRequest(searchedWord.value, searchedField.value), dispatchResultForTable, displayError, indexButtonActual);
     } else {
         anim.classList.remove('loader');
-        message.textContent = "aucune recherche en entrée";
+        message.textContent = "Le champ de recherche est vide !";
     }
 })
 
@@ -179,7 +179,9 @@ function displayResult(response, count, offset) {
 }
 
 function displayError(response) {
-     message.textContent = response
+    anim.classList.remove('loader');
+    console.log('pas');
+    message.textContent = response;
 }
 
 function convert(data) {
@@ -191,8 +193,6 @@ function convert(data) {
 
 function displayModal(elementsForModal, tableRow, offset) {
     clickOnCross = false;
-    //modalTitle.textContent = tableRow.children[headerTable.indexOf(element) + 1].textContent;
-    //modalAlbum.textContent = tableRow.children[headerTable.indexOf(element) + 1].textContent;
     modalMessage.textContent = "pas d'images pour ce titre";
     for (const element of headerTable) {
         const modalElement = document.createElement('li');
