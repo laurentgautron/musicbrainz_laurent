@@ -346,6 +346,10 @@ body {
   padding-bottom: 1rem;
   border-bottom: 2px solid #861010;
 }
+.modale .content li span {
+  padding-left: 1rem;
+  font-weight: 400;
+}
 .modale .content li::first-letter {
   text-transform: capitalize;
 }
